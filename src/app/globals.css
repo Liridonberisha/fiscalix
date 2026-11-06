@@ -1,0 +1,273 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --header-h: 4.5rem;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-h);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: #15121b;
+  color: #15121b;
+  font-family: var(--font-mona), system-ui, sans-serif;
+  font-stretch: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: #9b7bf7;
+  color: #15121b;
+}
+
+:focus-visible {
+  outline: 2px solid #9b7bf7;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* German compounds can outgrow narrow columns; let the browser hyphenate them */
+:lang(de) :is(h1, h2, h3, h4) {
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+:is(h1, h2, h3, h4) {
+  overflow-wrap: break-word;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+@layer components {
+  .container-site {
+    width: 100%;
+    max-width: 88rem;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 4vw, 3rem);
+  }
+
+  .grid-site {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: clamp(1rem, 2vw, 2rem);
+  }
+
+  .section {
+    padding-block: clamp(5rem, 3rem + 7vw, 9.5rem);
+  }
+
+  /* Type scale — Mona Sans; the width axis carries the display voice */
+  .t-display {
+    font-stretch: 112%;
+    font-weight: 620;
+    font-size: clamp(2.55rem, 1.15rem + 5.3vw, 6.4rem);
+    line-height: 0.97;
+    letter-spacing: -0.038em;
+    text-wrap: balance;
+  }
+  .t-h1 {
+    font-stretch: 112%;
+    font-weight: 620;
+    font-size: clamp(2.35rem, 1.3rem + 4vw, 5.25rem);
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+  .t-h2 {
+    font-stretch: 110%;
+    font-weight: 610;
+    font-size: clamp(2rem, 1.3rem + 2.8vw, 4rem);
+    line-height: 1.02;
+    letter-spacing: -0.032em;
+    text-wrap: balance;
+  }
+  .t-h3 {
+    font-stretch: 106%;
+    font-weight: 590;
+    font-size: clamp(1.3rem, 1.12rem + 0.65vw, 1.75rem);
+    line-height: 1.15;
+    letter-spacing: -0.018em;
+  }
+  .t-h4 {
+    font-stretch: 104%;
+    font-weight: 590;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+  .t-lead {
+    font-size: clamp(1.075rem, 1rem + 0.35vw, 1.3rem);
+    line-height: 1.55;
+    letter-spacing: -0.005em;
+  }
+  .t-body {
+    font-size: 1.0625rem;
+    line-height: 1.65;
+  }
+  .t-small {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+  .t-label {
+    font-size: 0.8125rem;
+    font-weight: 520;
+    line-height: 1.3;
+    letter-spacing: 0.01em;
+  }
+
+  /* Buttons — pill shaped, fill sweeps up from the base on hover */
+  .btn {
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 3.25rem;
+    padding-inline: 1.6rem;
+    border-radius: 999px;
+    overflow: hidden;
+    font-size: 1rem;
+    font-weight: 560;
+    letter-spacing: -0.005em;
+    white-space: nowrap;
+    transition: color 0.45s var(--ease-out), border-color 0.45s var(--ease-out), transform 0.3s var(--ease-out);
+  }
+  .btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    transform: translateY(101%);
+    transition: transform 0.5s var(--ease-out);
+  }
+  .btn:hover::before,
+  .btn:focus-visible::before {
+    transform: translateY(0);
+  }
+  .btn:active {
+    transform: scale(0.98);
+  }
+  .btn-primary {
+    background: #6d28d9;
+    color: #fff;
+  }
+  .btn-primary::before {
+    background: #4c1d95;
+  }
+  .btn-ghost-dark {
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    color: #fff;
+  }
+  .btn-ghost-dark::before {
+    background: #ecebf0;
+  }
+  .btn-ghost-dark:hover,
+  .btn-ghost-dark:focus-visible {
+    color: #15121b;
+    border-color: #ecebf0;
+  }
+  .btn-ghost-light {
+    border: 1px solid rgba(21, 18, 27, 0.22);
+    color: #15121b;
+  }
+  .btn-ghost-light::before {
+    background: #15121b;
+  }
+  .btn-ghost-light:hover,
+  .btn-ghost-light:focus-visible {
+    color: #fff;
+    border-color: #15121b;
+  }
+  .btn-sm {
+    min-height: 2.6rem;
+    padding-inline: 1.15rem;
+    font-size: 0.9375rem;
+  }
+
+  /* Underline that draws in from the left */
+  .link-draw {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.45s var(--ease-out);
+    padding-bottom: 2px;
+  }
+  .link-draw:hover,
+  .link-draw:focus-visible {
+    background-size: 100% 1px;
+  }
+  .link-under {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 100% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    padding-bottom: 3px;
+    transition: background-size 0.45s var(--ease-out), color 0.3s;
+  }
+  .link-under:hover {
+    background-size: 30% 1px;
+  }
+
+  /* Interface mockups */
+  .ui-frame {
+    border-radius: 14px;
+    background: #fff;
+    box-shadow:
+      0 0 0 1px rgba(21, 18, 27, 0.08),
+      0 24px 48px -24px rgba(21, 18, 27, 0.35);
+  }
+  .ui-frame-dark {
+    border-radius: 14px;
+    background: #1c1923;
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.08),
+      0 30px 60px -30px rgba(0, 0, 0, 0.7);
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 6px;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.8125rem;
+    line-height: 1.2;
+  }
+}
+
+@layer utilities {
+  .stretch-wide {
+    font-stretch: 112%;
+  }
+  .stretch-normal {
+    font-stretch: 100%;
+  }
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+}
